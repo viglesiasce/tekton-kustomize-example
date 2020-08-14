@@ -1,0 +1,46 @@
+apiVersion: kpt.dev/v1alpha1
+kind: Kptfile
+metadata:
+  name: .
+packageMetadata:
+  shortDescription: sample description
+openAPI:
+  definitions:
+    io.k8s.cli.setters.relativeSkaffoldYAMLDir:
+      x-k8s-cli:
+        setter:
+          name: "relativeSkaffoldYAMLDir"
+          value: "examples/kaniko"
+          isSet: true
+    io.k8s.cli.substitutions.skaffoldYAMLDir:
+      x-k8s-cli:
+        substitution:
+          name: skaffoldYAMLDir
+          pattern: /workspace/docker-source/${relativeSkaffoldYAMLDir}
+          values:
+          - marker: ${relativeSkaffoldYAMLDir}
+            ref: '#/definitions/io.k8s.cli.setters.relativeSkaffoldYAMLDir'
+    io.k8s.cli.setters.relativeContextPath:
+      x-k8s-cli:
+        setter:
+          name: "relativeContextPath"
+          value: ""
+          isSet: true
+    io.k8s.cli.substitutions.pathToContext:
+      x-k8s-cli:
+        substitution:
+          name: pathToContext
+          pattern: /workspace/docker-source/${relativeContextPath}
+          values:
+          - marker: ${relativeContextPath}
+            ref: '#/definitions/io.k8s.cli.setters.relativeContextPath'
+    io.k8s.cli.setters.repo:
+      x-k8s-cli:
+        setter:
+          name: "repo"
+          value: "https://github.com/GoogleContainerTools/skaffold"
+    io.k8s.cli.setters.revision:
+      x-k8s-cli:
+        setter:
+          name: "revision"
+          value: "master"
