@@ -27,8 +27,14 @@ spec:
     env:
     - name: "DOCKER_CONFIG"
       value: "/tekton/home/.docker/"
+    command:
+    - bash
     args:
-    - cd $(params.skaffoldYAMLDir) && skaffold build
+    - -c
+    - |
+      ln -s /tekton/home/.docker /home/.docker
+      cd $(params.skaffoldYAMLDir)
+      skaffold build
     volumeMounts:
       - name: docker-socket
         mountPath: /var/run/docker.sock
