@@ -10,7 +10,7 @@ openAPI:
       x-k8s-cli:
         setter:
           name: "relativeSkaffoldYAMLDir"
-          value: "examples/kaniko"
+          value: ""
           isSet: true
     io.k8s.cli.substitutions.skaffoldYAMLDir:
       x-k8s-cli:
@@ -38,9 +38,11 @@ openAPI:
       x-k8s-cli:
         setter:
           name: "repo"
-          value: "https://github.com/GoogleContainerTools/skaffold"
+          value: "https://github.com/viglesiasce/sample-app"
+          isSet: true
     io.k8s.cli.setters.revision:
       x-k8s-cli:
         setter:
           name: "revision"
-          value: "master"
+          value: "kpt"
+          isSet: true

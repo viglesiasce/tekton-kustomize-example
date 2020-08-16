@@ -6,6 +6,6 @@ spec:
   type: git
   params:
   - name: revision
-    value: master # {"$kpt-set":"revision"}
+    value: kpt # {"$kpt-set":"revision"}
   - name: url
-    value: https://github.com/GoogleContainerTools/skaffold # {"$kpt-set":"repo"}
+    value: https://github.com/viglesiasce/sample-app # {"$kpt-set":"repo"}
