@@ -1,24 +1,51 @@
 apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:
-  name: tutorial-pipeline
+  name: build-image
 spec:
-  resources:
-  - name: source-repo
-    type: git
-  - name: web-image
-    type: image
+  workspaces:
+  - name: source # Name of the workspace in the Pipeline
   tasks:
-  - name: build-skaffold-web
+  - name: git-clone
+    workspaces:
+    - name: output
+      workspace: source
     taskRef:
-      name: build-docker-image-from-git-source
+      name: git-clone
     params:
-    - name: skaffoldYAMLDir
-      value: /workspace/docker-source/ # {"$kpt-set":"skaffoldYAMLDir"}
-    resources:
-      inputs:
-      - name: docker-source
-        resource: source-repo
-      outputs:
-      - name: builtImage
-        resource: web-image
+    - name: url
+      value: https://github.com/viglesiasce/sample-app # {"$kpt-set":"repo"}
+    - name: revision
+      value: kpt # {"$kpt-set":"revision"}
+  - name: output
+    workspaces:
+    - name: output
+      workspace: source
+    runAfter:
+    - git-clone
+    taskSpec:
+      workspaces:
+      - name: output
+      steps:
+      - name: echo
+        image: ubuntu
+        command:
+        - ls
+        args:
+        - "-la"
+        - "/workspace/output"
+  - name: build
+    workspaces:
+    - name: source # this workspace name must be declared in the Task
+      workspace: source
+    taskRef:
+      name: kaniko
+    runAfter:
+    - output
+    params:
+    - name: IMAGE
+      value: viglesiasce/sample-app-frontend # {"$kpt-set":"imageUrl"}
+    - name: CONTEXT
+      value: cmd/frontend # {"$kpt-set":"context"}
+    - name: DOCKERFILE
+      value: Dockerfile # {"$kpt-set":"test"}

@@ -46,3 +46,14 @@ openAPI:
           name: "revision"
           value: "kpt"
           isSet: true
+    io.k8s.cli.setters.context:
+      x-k8s-cli:
+        setter:
+          name: context
+          value: "cmd/frontend"
+          isSet: true
+    io.k8s.cli.setters.Dockerfile:
+      x-k8s-cli:
+        setter:
+          name: dockerfile
+          value: Dockerfile

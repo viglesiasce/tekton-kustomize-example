@@ -1,0 +1,55 @@
+apiVersion: kpt.dev/v1alpha1
+kind: Kptfile
+metadata:
+  name: .
+upstream:
+  type: git
+  git:
+    commit: a9600e084a52cf54e578a316aff2f11f5731a98c
+    repo: https://github.com/tektoncd/catalog
+    directory: task/kaniko/0.1
+    ref: master
+packageMetadata:
+  shortDescription: sample description
+openAPI:
+  definitions:
+    io.k8s.cli.setters.relativeContextPath:
+      x-k8s-cli:
+        setter:
+          isSet: true
+          name: relativeContextPath
+          value: ""
+    io.k8s.cli.setters.relativeSkaffoldYAMLDir:
+      x-k8s-cli:
+        setter:
+          isSet: true
+          name: relativeSkaffoldYAMLDir
+          value: ""
+    io.k8s.cli.setters.repo:
+      x-k8s-cli:
+        setter:
+          isSet: true
+          name: repo
+          value: https://github.com/viglesiasce/sample-app
+    io.k8s.cli.setters.revision:
+      x-k8s-cli:
+        setter:
+          isSet: true
+          name: revision
+          value: kpt
+    io.k8s.cli.substitutions.pathToContext:
+      x-k8s-cli:
+        substitution:
+          name: pathToContext
+          pattern: /workspace/docker-source/${relativeContextPath}
+          values:
+          - marker: ${relativeContextPath}
+            ref: '#/definitions/io.k8s.cli.setters.relativeContextPath'
+    io.k8s.cli.substitutions.skaffoldYAMLDir:
+      x-k8s-cli:
+        substitution:
+          name: skaffoldYAMLDir
+          pattern: /workspace/docker-source/${relativeSkaffoldYAMLDir}
+          values:
+          - marker: ${relativeSkaffoldYAMLDir}
+            ref: '#/definitions/io.k8s.cli.setters.relativeSkaffoldYAMLDir'

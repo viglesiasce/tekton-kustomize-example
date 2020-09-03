@@ -1,0 +1,13 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  name: build-image-default
+spec:
+  serviceAccountName: tutorial-service
+  pipelineRef:
+    name: build-image
+  timeout: 1h0m0s
+  workspaces:
+  - name: source
+    persistentVolumeClaim:
+      claimName: source
