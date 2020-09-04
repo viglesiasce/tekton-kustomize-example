@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# YAML parsing function borrowed from ChartInflator
+function parseYaml {
+  local file=$1
+  while read -r line
+  do
+    local k=${line%%:*}
+    local v=${line#*:}
+    local t=${v#"${v%%[![:space:]]*}"}  # trim leading space
+
+    if [ "$k" == "command" ]; then command=$t
+    fi
+  done <"$file"
+}
+
+if [[ -z $command ]];then
+  command="date +%s"
+fi
+sed "s/build-image-default/build-image-default-$($command)/" tekton/pipelinerun.yaml
