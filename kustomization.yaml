@@ -6,8 +6,12 @@ resources:
   - https://raw.githubusercontent.com/tektoncd/catalog/master/task/git-clone/0.2/git-clone.yaml
   # Kaniko Task
   - https://raw.githubusercontent.com/tektoncd/catalog/master/task/kaniko/0.1/kaniko.yaml
+  # Tekton Resources
+  - tekton/pipeline.yaml
+  - tekton/pvc.yaml
+  - tekton/serviceaccount.yaml
 generators:
-- pipeline-timestamp/pipeline-run-suffix.yaml
+- tekton/pipeline-run-suffix.yaml
 secretGenerator:
 - name: regcred
   files:

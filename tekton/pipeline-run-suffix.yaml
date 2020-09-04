@@ -1,0 +1,5 @@
+apiVersion: pipelinrunsuffix.tekton.cd/v1
+kind: PipelineRunSuffixGenerator
+metadata:
+  name: timestamp
+command: date +%s
