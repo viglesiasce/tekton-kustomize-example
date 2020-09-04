@@ -1,0 +1,19 @@
+apiVersion: skaffold/v2beta6
+kind: Config
+metadata:
+  name: tekton-kpt-example
+build:
+  artifacts:
+  - context: .
+    image: gcr.io/tekton-releases/github.com/tektoncd/pipeline/cmd/git-init
+deploy:
+  kustomize:
+    buildArgs:
+    - --enable_alpha_plugins
+    paths:
+    - .
+portForward:
+  - resourceType: Service
+    resourceName: tekton-dashboard
+    namespace: tekton-pipelines
+    port: 9070

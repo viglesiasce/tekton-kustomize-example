@@ -14,9 +14,9 @@ spec:
       name: git-clone
     params:
     - name: url
-      value: https://github.com/viglesiasce/sample-app # {"$kpt-set":"repo"}
+      value: https://github.com/viglesiasce/sample-app
     - name: revision
-      value: kpt # {"$kpt-set":"revision"}
+      value: kpt
   - name: output
     workspaces:
     - name: output
@@ -44,8 +44,8 @@ spec:
     - output
     params:
     - name: IMAGE
-      value: viglesiasce/sample-app-frontend # {"$kpt-set":"imageUrl"}
+      value: viglesiasce/sample-app-frontend
     - name: CONTEXT
-      value: cmd/frontend # {"$kpt-set":"context"}
+      value: cmd/frontend
     - name: DOCKERFILE
-      value: Dockerfile # {"$kpt-set":"test"}
+      value: Dockerfile

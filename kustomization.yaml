@@ -1,0 +1,15 @@
+resources:
+  # Tekton Release
+  - https://storage.googleapis.com/tekton-releases/pipeline/previous/v0.15.2/release.yaml
+  - https://github.com/tektoncd/dashboard/releases/download/v0.9.0/tekton-dashboard-release.yaml
+  # Git Clone Task
+  - https://raw.githubusercontent.com/tektoncd/catalog/master/task/git-clone/0.2/git-clone.yaml
+  # Kaniko Task
+  - https://raw.githubusercontent.com/tektoncd/catalog/master/task/kaniko/0.1/kaniko.yaml
+generators:
+- pipeline-timestamp/pipeline-run-suffix.yaml
+secretGenerator:
+- name: regcred
+  files:
+    - .dockerconfigjson
+  type: kubernetes.io/dockerconfigjson
