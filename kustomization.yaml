@@ -1,7 +1,7 @@
 resources:
   # Tekton Release
-  - https://storage.googleapis.com/tekton-releases/pipeline/previous/v0.15.2/release.yaml
-  - https://github.com/tektoncd/dashboard/releases/download/v0.9.0/tekton-dashboard-release.yaml
+  - https://storage.googleapis.com/tekton-releases/pipeline/previous/v0.18.1/release.yaml
+  - https://github.com/tektoncd/dashboard/releases/download/v0.11.1/tekton-dashboard-release.yaml
   # Git Clone Task
   - https://raw.githubusercontent.com/tektoncd/catalog/master/task/git-clone/0.2/git-clone.yaml
   # Kaniko Task
@@ -14,6 +14,9 @@ generators:
 - tekton/pipeline-run-suffix.yaml
 secretGenerator:
 - name: regcred
+  options:
+    # Does not get replaced properly in the ServiceAccount secrets
+    disableNameSuffixHash: true
   files:
     - .dockerconfigjson
   type: kubernetes.io/dockerconfigjson
