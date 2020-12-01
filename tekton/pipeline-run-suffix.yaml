@@ -1,4 +1,4 @@
-apiVersion: pipelinrunsuffix.tekton.cd/v1
+apiVersion: pipelinerunsuffix.tekton.cd/v1
 kind: PipelineRunSuffixGenerator
 metadata:
   name: timestamp
